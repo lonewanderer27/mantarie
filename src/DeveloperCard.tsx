@@ -1,4 +1,4 @@
-import { Card, Image, Stack, CardBody, Divider, CardFooter, ButtonGroup, Button, Heading, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Image, Stack, Text } from "@chakra-ui/react";
 
 export default function DeveloperCard(props: {
   image: string,

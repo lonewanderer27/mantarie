@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
   InputGroup,
@@ -10,21 +11,19 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Text,
-  FormErrorMessage,
-  SlideFade
+  SlideFade,
+  Text
 } from "@chakra-ui/react";
-
-import { testBisectionInterval } from "./calculators/bisection";
-
-import IterationsTable from "./IterationsTable";
-import { GlobalState } from "./App";
-import React, { useEffect } from "react";
-import { parser } from "mathjs";
-import { useContext } from "react";
-import calculator from "./calculators/calculator";
 import { Modes, functionTypeEnums } from "./enums";
+import React, { useEffect } from "react";
+
 import AnswerTable from "./AnswerTable";
+import { GlobalState } from "./App";
+import IterationsTable from "./IterationsTable";
+import calculator from "./calculators/calculator";
+import { parser } from "mathjs";
+import { testBisectionInterval } from "./calculators/bisection";
+import { useContext } from "react";
 
 export default function Body() {
   const { 
@@ -42,14 +41,17 @@ export default function Body() {
   });
 
   const aHandleChange = (valueAsString: string, valueAsNumber: number) => {
+    console.log("New a: ", valueAsString)
     setA(valueAsNumber);
   }
 
   const bHandleChange = (valueAsString: string, valueAsNumber: number) => {
+    console.log("New b: ", valueAsString)
     setB(valueAsNumber);
   }
 
   const nHandleChange = (valueAsString: string, valueAsNumber: number) => {
+    console.log("New n: ", valueAsString)
     setN(valueAsNumber);
   }
 
