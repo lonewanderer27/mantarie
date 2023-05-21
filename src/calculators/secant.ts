@@ -14,7 +14,7 @@ export default function calcSecant(
   p.evaluate(customFunc);
   const useCustomFunc = p.get("f");
   
-  let rows: rowType[] = [];
+  const rows: rowType[] = [];
   let temp_n = 0;
 
   let temp_a = 0;

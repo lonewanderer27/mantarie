@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
-import { useContext } from "react";
 import { GlobalState } from "./App";
 import { Modes } from "./enums";
+import { useContext } from "react";
 
 export default function Sidebar() {
   const { 

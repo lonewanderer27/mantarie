@@ -1,4 +1,5 @@
 import { AnswerType, TableRow } from "../types";
+
 import { parser } from "mathjs";
 
 export default function calculator(a: number, b: number, n: number, function_: string): AnswerType {
@@ -78,7 +79,7 @@ export default function calculator(a: number, b: number, n: number, function_: s
   }
 
   const ans_ti = ( deltaX / 2 ) * sum_ti;
-  const ans_si = ( deltaX / 2 ) * sum_si;
+  const ans_si = ( deltaX / 3 ) * sum_si;
 
   console.log("Iterations Table: ")
   console.table(iterations);
