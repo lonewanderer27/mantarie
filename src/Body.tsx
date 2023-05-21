@@ -137,7 +137,7 @@ export default function Body() {
             isReadOnly={showAnswer || mode == Modes.PREDEFINED}
             errorBorderColor='crimson' 
             name="function" 
-            value={function_} 
+            value={mode == Modes.PREDEFINED ? "ln(x+1)" : function_} 
             onChange={functionHandleChange} 
           />
         </InputGroup>
