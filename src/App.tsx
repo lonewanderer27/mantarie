@@ -119,14 +119,14 @@ function App() {
             <Sidebar />
           </div>
           <div className="w-full lg:w-3/4 lg:max-h-screen lg:overflow-y-auto">
-            <SlideFade in={mode != null}>  
+            {mode != null && <SlideFade in={mode != null}>  
               <BodyHeader mode={mode} />
               <Body />
-            </SlideFade>
-            <SlideFade in={mode == null}>
+            </SlideFade>}
+            {mode == null && <SlideFade in={mode == null}>
               <AboutHeader />
               <About />
-            </SlideFade>
+            </SlideFade>}
           </div>
         </div>
       </GlobalState.Provider>

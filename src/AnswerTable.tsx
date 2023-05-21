@@ -12,6 +12,7 @@ import { AnswerType } from "./types";
 
 export default function AnswerTable(props: {
   answer: AnswerType | null,
+  function_: string,
   a: number,
   b: number,
   n: number,
@@ -38,6 +39,7 @@ export default function AnswerTable(props: {
         <Tbody>
           <Tr>
             <Td>
+              <Text>f(x) = {props.function_}</Text>
               <Text>b = {props.b}</Text>
               <Text>a = {props.a}</Text>
               <Text>n = {props.n}</Text>

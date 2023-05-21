@@ -204,7 +204,7 @@ export default function Body() {
       {showAnswer && 
       <SlideFade in={showAnswer} offsetY="20px">
         <div className="pb-10">
-          <AnswerTable answer={answer} a={a} b={b} n={n}/>
+          <AnswerTable answer={answer} function_={function_} a={a} b={b} n={n}/>
         </div>
       </SlideFade>
       }
