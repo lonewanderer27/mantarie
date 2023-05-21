@@ -163,7 +163,7 @@ export default function Body() {
           </Text>
         </div> */}
       </div>
-      <div className="flex gap-4 pb-10">
+      <div className="flex flex-col md:flex-row gap-4 pb-10">
         <div className="w-full md:w-1/4">
           <FormControl>
             <FormLabel><Text>Lower Limit</Text></FormLabel>
@@ -209,7 +209,7 @@ export default function Body() {
             </InputGroup>
           </FormControl>
         </div>
-        <div className="w-full md:w-1/4 flex flex-col justify-end">
+        <div className="w-full md:w-1/4 sm:w-full flex flex-col justify-end">
           <Button 
             isDisabled={!determineIfCanCompute()}
             colorScheme={showAnswer ? "yellow" : "blue"}
