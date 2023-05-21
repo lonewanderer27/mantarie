@@ -12,7 +12,8 @@ import {
   NumberInputField,
   NumberInputStepper,
   SlideFade,
-  Text
+  Text,
+  useToast
 } from "@chakra-ui/react";
 import { Modes, functionTypeEnums } from "./enums";
 import React, { useEffect } from "react";
@@ -81,6 +82,8 @@ export default function Body() {
     return canCompute;
   }
 
+  const toast = useToast();
+
   const computeAnswer = () => {
     let testResults;
     if (function_.includes("log(x+1)")) {
@@ -99,7 +102,15 @@ export default function Body() {
     // therefore it's not computable
     else {
       console.table(testResults);
-      alert("This function cannot be computed!");
+      // alert("This function cannot be computed!");
+      toast({
+        title: `f(x) = ${function_} is not defined at c which is inside [a, b]`,
+        variant: "solid",
+        status: "error",
+        isClosable: true,
+        position: "top",
+        size: "lg"
+      })
     }
   }
 
@@ -129,20 +140,29 @@ export default function Body() {
 
   return (
     <div className="p-10">
-      <FormControl className="pb-10" isInvalid={!isValidFunction} >
-        <FormLabel>Function{mode === Modes.PREDEFINED && ": Natural Logarithmic"}</FormLabel>
-        <InputGroup size="lg">
-          <InputLeftAddon children="f(x) =" />
-          <Input
-            isReadOnly={showAnswer || mode == Modes.PREDEFINED}
-            errorBorderColor='crimson' 
-            name="function" 
-            value={mode == Modes.PREDEFINED ? "ln(x+1)" : function_} 
-            onChange={functionHandleChange} 
-          />
-        </InputGroup>
-        <FormErrorMessage>Invalid function</FormErrorMessage>
-      </FormControl>
+      <div className="flex gap-4 pb-10">
+        <div className="w-full">
+          <FormControl className="pb-10" isInvalid={!isValidFunction} >
+            <FormLabel>Function{mode === Modes.PREDEFINED && ": Natural Logarithmic"}</FormLabel>
+            <InputGroup size="lg">
+              <InputLeftAddon children="f(x) =" />
+              <Input
+                isReadOnly={showAnswer || mode == Modes.PREDEFINED}
+                errorBorderColor='crimson' 
+                name="function" 
+                value={mode == Modes.PREDEFINED ? "ln(x+1)" : function_} 
+                onChange={functionHandleChange} 
+              />
+            </InputGroup>
+            <FormErrorMessage>Invalid function</FormErrorMessage>
+          </FormControl>
+        </div>
+        {/* <div className="w-full md:w-1/2 flex flex-col justify-center">
+          <Text>
+            ≈ {mode === Modes.PREDEFINED ? "2.545177444" : ""}
+          </Text>
+        </div> */}
+      </div>
       <div className="flex gap-4 pb-10">
         <div className="w-full md:w-1/4">
           <FormControl>
