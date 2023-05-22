@@ -196,7 +196,7 @@ export default function Body() {
         </div>
         <div className="w-full md:w-1/4">
           <FormControl>
-            <FormLabel><Text>Iteration</Text></FormLabel>
+            <FormLabel><Text>Interval</Text></FormLabel>
             <InputGroup size="lg">
               <InputLeftAddon children="n" />
               <NumberInput isReadOnly={showAnswer} min={2} defaultValue={2}  name="n" value={n} onChange={nHandleChange}>
