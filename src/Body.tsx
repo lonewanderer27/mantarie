@@ -17,13 +17,14 @@ import {
 } from "@chakra-ui/react";
 import { Modes, functionTypeEnums } from "./enums";
 import React, { useEffect } from "react";
+import { calcBisectionForMantarie, testBisectionInterval } from "./calculators/bisection";
 
 import AnswerTable from "./AnswerTable";
 import { GlobalState } from "./App";
 import IterationsTable from "./IterationsTable";
+import { answerType } from "./types";
 import calculator from "./calculators/calculator";
 import { parser } from "mathjs";
-import { testBisectionInterval } from "./calculators/bisection";
 import { useContext } from "react";
 
 export default function Body() {
@@ -90,7 +91,7 @@ export default function Body() {
       testResults = testBisectionInterval(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_);
     } else {
       testResults = testBisectionInterval(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_);
-    }
+    }    
     
     // if the testBisection failed, that means we don't have a root
     // therefore this function is computable for simpson's method
@@ -102,9 +103,22 @@ export default function Body() {
     // therefore it's not computable
     else {
       console.table(testResults);
-      // alert("This function cannot be computed!");
+
+      const findRoot = false;
+      let bisectionResults: answerType = undefined;
+
+      if (findRoot) {
+        if (function_.includes("log(x+1)")){
+          bisectionResults = calcBisectionForMantarie(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_);
+        } else {
+          bisectionResults = calcBisectionForMantarie(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_)
+        }
+
+        console.log(bisectionResults)
+      }
+
       toast({
-        title: `f(x) = ${function_} is not defined at c which is inside [a, b]`,
+        title: `f(x) = ${function_} is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
         variant: "solid",
         status: "error",
         isClosable: true,

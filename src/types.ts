@@ -1,6 +1,6 @@
 import { Modes } from "./enums";
-import { functionTypeEnums } from "./enums"
 import React from 'react';
+import { functionTypeEnums } from "./enums"
 
 export interface TableRow {
   i: number,
