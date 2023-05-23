@@ -17,14 +17,14 @@ import {
 } from "@chakra-ui/react";
 import { Modes, functionTypeEnums } from "./enums";
 import React, { useEffect } from "react";
-import { calcBisectionForMantarie, testBisectionInterval } from "./calculators/bisection";
+import { calcBisectionForMantarie, calcBisectionStandard, testBisectionInterval } from "./calculators/bisection";
+import { parser, round } from "mathjs";
 
 import AnswerTable from "./AnswerTable";
 import { GlobalState } from "./App";
 import IterationsTable from "./IterationsTable";
 import { answerType } from "./types";
 import calculator from "./calculators/calculator";
-import { parser } from "mathjs";
 import { useContext } from "react";
 
 export default function Body() {
@@ -104,26 +104,32 @@ export default function Body() {
     else {
       console.table(testResults);
 
-      const findRoot = false;
+      const findRoot = true;
       let bisectionResults: answerType = undefined;
 
       if (findRoot) {
         if (function_.includes("log(x+1)")){
-          bisectionResults = calcBisectionForMantarie(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_);
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
         } else {
-          bisectionResults = calcBisectionForMantarie(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_)
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
         }
 
         console.log(bisectionResults)
       }
 
+      // const math = mathjs(); 
+
       toast({
-        title: `f(x) = ${function_} is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
+        title: `Function is not computable`,
+        description: `f(x) = ${function_} is not defined at ${bisectionResults !== undefined ? round(bisectionResults.cn, 9) : "c"} which is inside [${a}, ${b}]`,
         variant: "solid",
         status: "error",
         isClosable: true,
         position: "top",
-        size: "lg"
+        size: "lg",
+        containerStyle: {
+          width: "750px"
+        }
       })
     }
   }
