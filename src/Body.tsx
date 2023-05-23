@@ -1,3 +1,4 @@
+import { AnswerType, answerType } from "./types";
 import {
   Button,
   FormControl,
@@ -23,7 +24,6 @@ import { parser, round } from "mathjs";
 import AnswerTable from "./AnswerTable";
 import { GlobalState } from "./App";
 import IterationsTable from "./IterationsTable";
-import { answerType } from "./types";
 import calculator from "./calculators/calculator";
 import { useContext } from "react";
 
@@ -96,8 +96,37 @@ export default function Body() {
     // if the testBisection failed, that means we don't have a root
     // therefore this function is computable for simpson's method
     if (testResults.success == false) {
-      setAnswer(calculator(a, b, n, function_));
-      setShowAnswer(!showAnswer);
+      // but let's check if the answer is infinity
+      const answer: AnswerType = calculator(a, b, n, function_);
+
+      // if it has infinity, then let's get the bisection result
+      let bisectionResults;
+      if (function_.includes("log(x+1)")){
+        bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+      } else {
+        bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+      }
+
+      if (answer.ans_si === Infinity || answer.ans_ti === Infinity) {
+        toast({
+          title: `Function is not computable`,
+          description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
+          variant: "solid",
+          status: "error",
+          isClosable: true,
+          position: "top",
+          size: "lg",
+          containerStyle: {
+            width: "750px"
+          }
+        })
+      } 
+      
+      // everything is really fine!
+      else {
+        setAnswer(calculator(a, b, n, function_));
+        setShowAnswer(!showAnswer);
+      }
     } 
     // otherwise, this function have a root
     // therefore it's not computable
@@ -121,7 +150,7 @@ export default function Body() {
 
       toast({
         title: `Function is not computable`,
-        description: `f(x) = ${function_} is not defined at ${bisectionResults !== undefined ? round(bisectionResults.cn, 9) : "c"} which is inside [${a}, ${b}]`,
+        description: `f(c) is not defined at ${bisectionResults !== undefined ? round(bisectionResults.cn, 9) : "c"} which is inside [${a}, ${b}]`,
         variant: "solid",
         status: "error",
         isClosable: true,
