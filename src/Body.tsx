@@ -107,7 +107,7 @@ export default function Body() {
       }
 
       // if it has infinity, then let's display the c from the last row of bisection result
-      if (answer.ans_si === Infinity || answer.ans_ti === Infinity) {
+      if (answer.ans_si === Infinity || answer.ans_ti === Infinity || isNaN(answer.ans_si) === true || isNaN(answer.ans_ti) === true) {
         toast({
           title: `Function is not computable`,
           description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
