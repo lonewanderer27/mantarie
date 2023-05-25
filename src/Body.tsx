@@ -103,9 +103,9 @@ export default function Body() {
       if (answer.ans_si === Infinity || answer.ans_ti === Infinity || isNaN(answer.ans_si) === true || isNaN(answer.ans_ti) === true) {
         let bisectionResults;
         if (function_.includes("log(x+1)")){
-          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000000000001);
         } else {
-          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000000000001)
         }
 
         toast({
@@ -138,9 +138,9 @@ export default function Body() {
 
       if (findRoot) {
         if (function_.includes("log(x+1)")){
-          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000000000001);
         } else {
-          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000000000001)
         }
 
         console.log(bisectionResults)
@@ -150,7 +150,7 @@ export default function Body() {
 
       toast({
         title: `Function is not computable`,
-        description: `f(c) is not defined at ${bisectionResults !== undefined ? round(bisectionResults.cn, 9) : "c"} which is inside [${a}, ${b}]`,
+        description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
         variant: "solid",
         status: "error",
         isClosable: true,
