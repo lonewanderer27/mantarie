@@ -19,12 +19,12 @@ import {
 import { Modes, functionTypeEnums } from "./enums";
 import React, { useEffect } from "react";
 import { calcBisectionStandard, testBisectionInterval } from "./calculators/bisection";
-import { parser, round } from "mathjs";
 
 import AnswerTable from "./AnswerTable";
 import { GlobalState } from "./App";
 import IterationsTable from "./IterationsTable";
 import calculator from "./calculators/calculator";
+import { parser } from "mathjs";
 import { useContext } from "react";
 
 export default function Body() {
